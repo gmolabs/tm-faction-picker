@@ -1,8 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import * as tf from '@tensorflow/tfjs';
+
 
 function App() {
+  (async () => {
+    const model = await tf.loadLayersModel(
+      './model/model.json');
+    model.summary();
+  })();
   return (
     <div className="App">
       <header className="App-header">
