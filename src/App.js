@@ -98,7 +98,7 @@ function App() {
   ];
   var gamestate;
   var encodedGamestate;
-  var predictions = 0;
+  var predictions;
   (async () => {
     const model = await tf.loadLayersModel(
       './model/model.json');
@@ -124,21 +124,27 @@ function App() {
   })();
   return (
     <div className="App">
+      <header className="App-header">
+        <h1>Terra Mystica Faction Picker</h1>
+        <h2>Available Bonus Tiles</h2>
+        <ul class="inputList">
+          {BONUS_TILES.map((x, y) => <li><input key={y} type='checkbox' />{x}</li>)}
+        </ul>
+        <h2>Scoring Tiles</h2>
+        <ul>
+          {[...Array(6)].map((x, i) =>
+            <div>Round {i + 1}: <select><option></option>{ROUND_TILES.map((x, y) => <option key={y}>{x}</option>)}</select></div>
+          )}
+          {/* <div>Round 1: <select>{ROUND_TILES.map((x, y) => <option key={y}>{x}</option>)}</select></div> */}
+        </ul>
+        <h2>Already Selected Factions</h2>
+        <ul class="inputList">
+          {FACTIONS.map((x, y) => <li><input key={y} type='checkbox' />{x.faction}</li>)}
+        </ul>
 
-      <h1>Terra Mystica Faction Picker</h1>
-      <h2>Bonus Tiles</h2>
-      <ul>
-        {BONUS_TILES.map((x, y) => <li><input key={y} type='checkbox' checked='true' />{x}</li>)};
-      </ul>
-      <h2>Scoring Tiles</h2>
-      <ul>
-        {[...Array(6)].map((x, i) =>
-          <div>Round {i + 1}: <select>{ROUND_TILES.map((x, y) => <option key={y}>{x}</option>)}</select></div>
-        )}
-        {/* <div>Round 1: <select>{ROUND_TILES.map((x, y) => <option key={y}>{x}</option>)}</select></div> */}
-      </ul>
-      <form><button>Pick Faction</button></form>
-      <h2 id="suggestion">{predictions}</h2>
+        {/* <form><button>Pick Faction</button></form> */}
+        <h2>Predictions</h2>
+      </header>
       {/* <header className="App-header">
         <h1>Terra Mystica Faction Picker</h1>
         <form><button>Pick Faction</button></form>
@@ -156,7 +162,7 @@ function App() {
           Learn React
         </a>
       </header> */}
-    </div>
+    </div >
   );
 }
 
