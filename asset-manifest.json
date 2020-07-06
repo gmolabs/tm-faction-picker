@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/tm-faction-picker/static/css/main.30e66db4.chunk.css",
+    "main.js": "/tm-faction-picker/static/js/main.a85cf29d.chunk.js",
+    "main.js.map": "/tm-faction-picker/static/js/main.a85cf29d.chunk.js.map",
+    "runtime-main.js": "/tm-faction-picker/static/js/runtime-main.3319770e.js",
+    "runtime-main.js.map": "/tm-faction-picker/static/js/runtime-main.3319770e.js.map",
+    "static/js/2.0782e7a1.chunk.js": "/tm-faction-picker/static/js/2.0782e7a1.chunk.js",
+    "static/js/2.0782e7a1.chunk.js.map": "/tm-faction-picker/static/js/2.0782e7a1.chunk.js.map",
+    "index.html": "/tm-faction-picker/index.html",
+    "precache-manifest.3b756559ed0c256db6b7f59853bab222.js": "/tm-faction-picker/precache-manifest.3b756559ed0c256db6b7f59853bab222.js",
+    "service-worker.js": "/tm-faction-picker/service-worker.js",
+    "static/css/main.30e66db4.chunk.css.map": "/tm-faction-picker/static/css/main.30e66db4.chunk.css.map",
+    "static/js/2.0782e7a1.chunk.js.LICENSE.txt": "/tm-faction-picker/static/js/2.0782e7a1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3319770e.js",
+    "static/js/2.0782e7a1.chunk.js",
+    "static/css/main.30e66db4.chunk.css",
+    "static/js/main.a85cf29d.chunk.js"
+  ]
+}
