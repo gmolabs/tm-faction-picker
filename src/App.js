@@ -126,8 +126,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Render Counter: {renderCount}</p>
-        <h2>Terra Mystica Faction Picker</h2>
+        {/* <p>Render Counter: {renderCount}</p> */}
+        {/* <h2>Terra Mystica Faction Picker</h2> */}
         <h3>Load Game from Snellman (optional)</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div><input type="text"></input><button>LOAD</button></div>
