@@ -104,8 +104,16 @@ function App() {
       const pred = tf.tidy(() => {
         const output = model.predict(tf.tensor(gamestateInputs));
         let sortedPredictions = Array.from(output.dataSync());
+        let unavailableColors = [];
+
+        for (let i = 0; i < 3; i++) {
+          if (gamestate[i + 9] !== "none") {
+            unavailableColors.push(FACTIONS[parseInt(gamestate[i + 9])].color);
+          }
+        }
+        // console.log("unavailable colors: " + unavailableColors);
         for (let i = 0; i < sortedPredictions.length; i++) {
-          sortedPredictions[i] = { fact: FACTIONS[i].faction, color: FACTIONS[i].color, score: sortedPredictions[i] }
+          sortedPredictions[i] = { fact: FACTIONS[i].faction, color: FACTIONS[i].color, score: sortedPredictions[i], class: (unavailableColors.includes(FACTIONS[i].color) ? "unavailable" : FACTIONS[i].color) }
         }
         sortedPredictions.sort((a, b) => (a.score < b.score) ? 1 : -1);
 
@@ -152,7 +160,7 @@ function App() {
           <table id="predictionsList">
             <tbody>
               {predictions.map((x, i) =>
-                <tr key={i}><td>{x.fact}</td><td>
+                <tr key={i} className={x.class}><td>{x.fact}</td><td>
                   {x.score.toFixed(3)}</td></tr>
               )}
             </tbody>

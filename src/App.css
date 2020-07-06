@@ -56,3 +56,35 @@ h3 {
   text-align: left;
   list-style-type: none;
 }
+
+.unavailable {
+  text-decoration: line-through;
+}
+
+/* .red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.green {
+  color: green;
+}
+
+.grey {
+  color: grey;
+}
+
+.black {
+  color: black;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.brown {
+  color: brown;
+} */
