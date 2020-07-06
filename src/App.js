@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './App.css';
 import * as tf from '@tensorflow/tfjs';
@@ -17,22 +17,7 @@ function App() {
   }
   const [predictions, setPredictions] = useState([]);
   const [model, setModel] = useState(null);
-
-
-  useEffect(() => {
-
-  })
-
-  const handleGameStateChange = (e) => {
-    //setGamestate([watch("bonus1"), watch("bonus2"), watch("bonus3"), watch("round1"), watch("round2"), watch("round3"), watch("round4"), watch("round5"), watch("round6"), watch("fact1"), watch("fact2"), watch("fact3")]);
-    // let name = e.target.name;
-    // console.log(name);
-    // let index = e.target.selectedIndex;
-    // setGamestate({ ...gamestate, [name]: index });
-    // console.log(data)
-    makePrediction();
-    //console.log(watch("bonus1"));
-  }
+  const [sortedPredictions, setSortedPredictions] = useState([]);
 
   const makePrediction = () => {
 
@@ -58,7 +43,7 @@ function App() {
     }
     //...then set to 0 if round tile is found in gamestate
     for (let i = 3; i < 9; i++) {
-      if (gamestate[i] != "-") {
+      if (gamestate[i] !== "-") {
         onehot[parseInt(gamestate[i]) + 10] = 0;
       }
     }
@@ -73,7 +58,7 @@ function App() {
     //index 73-86
     //onehot encoding of previously selected factions
     for (let i = 0; i < 3; i++) {
-      if (gamestate[i + 9] != "none") {
+      if (gamestate[i + 9] !== "none") {
         onehot[parseInt(gamestate[i + 9]) + 73] = 1;
       }
     }
@@ -82,7 +67,7 @@ function App() {
     //onehot encoding of previously selected colors
     let prevColors = [];
     for (let i = 0; i < 3; i++) {
-      if (gamestate[i + 9] != "none") {
+      if (gamestate[i + 9] !== "none") {
         prevColors[i] = COLORS.indexOf(FACTIONS[parseInt(gamestate[i + 9])].color);
       }
       onehot[parseInt(prevColors[i]) + 87] = 1;
@@ -92,7 +77,7 @@ function App() {
     //onehot encoding of your player number
     let nPrevPlayers = 0;
     for (let i = 0; i < 3; i++) {
-      if (gamestate[i + 9] != "none") {
+      if (gamestate[i + 9] !== "none") {
         nPrevPlayers++;
       }
     }
@@ -112,25 +97,20 @@ function App() {
       var colorIndex = COLORS.indexOf(myColor);
       gamestateInputs[i][112 + colorIndex] = 1;
     }
-    // console.log(watch("bonus1"));
-    // console.log(watch("bonus2"));
-    // console.log(watch("bonus3"));
-    // console.log(watch("round1"));
-    // console.log(watch("round2"));
-    // console.log(watch("round3"));
-    // console.log(watch("round4"));
-    // console.log(watch("round5"));
-    // console.log(watch("round6"));
-    // console.log(watch("fact1"));
-    // console.log(watch("fact2"));
-    // console.log(watch("fact3"));
 
     (async () => {
       const model = await tf.loadLayersModel('./model/model.json');
       setModel(model);
       const pred = tf.tidy(() => {
         const output = model.predict(tf.tensor(gamestateInputs));
-        setPredictions(Array.from(output.dataSync()));
+        let sortedPredictions = Array.from(output.dataSync());
+        for (let i = 0; i < sortedPredictions.length; i++) {
+          sortedPredictions[i] = { fact: FACTIONS[i].faction, color: FACTIONS[i].color, score: sortedPredictions[i] }
+        }
+        sortedPredictions.sort((a, b) => (a.score < b.score) ? 1 : -1);
+
+        console.log(sortedPredictions);
+        setPredictions(sortedPredictions);
       });
     })();
   }
@@ -172,8 +152,8 @@ function App() {
           <table id="predictionsList">
             <tbody>
               {predictions.map((x, i) =>
-                <tr key={i}><td>{FACTIONS[i].faction}</td><td>
-                  {predictions[i].toFixed(3)}</td></tr>
+                <tr key={i}><td>{x.fact}</td><td>
+                  {x.score.toFixed(3)}</td></tr>
               )}
             </tbody>
           </table>
