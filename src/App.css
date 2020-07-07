@@ -58,6 +58,7 @@ h3 {
 }
 
 .unavailable {
+  display: none;
   text-decoration: line-through;
 }
 

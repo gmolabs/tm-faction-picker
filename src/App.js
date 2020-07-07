@@ -128,9 +128,9 @@ function App() {
       <header className="App-header">
         {/* <p>Render Counter: {renderCount}</p> */}
         {/* <h2>Terra Mystica Faction Picker</h2> */}
-        <h3>Load Game from Snellman (optional)</h3>
+        <h3>Load Game from Snellman (coming soon!)</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div><input type="text"></input><button>LOAD</button></div>
+          <div><input disabled type="text"></input><button disabled>LOAD</button></div>
           <h3>Missing Bonus Tiles</h3>
           {/* 
         ~~~Checkbox UI~~~
