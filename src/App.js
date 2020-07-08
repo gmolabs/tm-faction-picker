@@ -6,6 +6,41 @@ import { BONUS_TILES, ROUND_TILES, COLORS, FACTIONS } from "./data.js";
 
 let renderCount = 0;
 
+function fetchGameState() {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var game_state = JSON.parse(xhr.response);
+      setRoundScoreTiles(game_state.events.global);
+    }
+  };
+  // instead of having a backend, we proxy the HTTP request with cors-anywhere
+  xhr.open("POST", "https://cors-anywhere.herokuapp.com/https://terra.snellman.net/app/view-game/");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  // payload must be e.g. "game=4pLeague_S26_D6L10_G4".
+  var payload = "game=" + document.getElementById("game_id").value;
+  xhr.send(payload);
+}
+
+// most elements of the input are garbage, but we look for e.g. round 2 had scoring tile 3:
+// {SCORE3 : {round : {2: 1, all: 1}}
+function setRoundScoreTiles(global_events) {
+  var i;
+  var score;
+  var round;
+  let select_elem;
+  for (i = 0; i < 20; i++) {
+    maybe_key = 'SCORE'+i;
+    score = global_events[maybe_key];
+    if (score) {
+      round = Object.keys(score.round)[0];
+      select_elem = document.getElementsByName('round'+round)[0];
+      select_elem.value = i;
+    }
+  }
+}
+
+
 function App() {
   renderCount++;
   const GAMESTATE_LENGTH = 119;
@@ -128,9 +163,9 @@ function App() {
       <header className="App-header">
         {/* <p>Render Counter: {renderCount}</p> */}
         {/* <h2>Terra Mystica Faction Picker</h2> */}
-        <h3>Load Game from Snellman (coming soon!)</h3>
+        <h3>Load Game from Snellman</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div><input disabled type="text"></input><button disabled>LOAD</button></div>
+          <div><input id="game_id" type="text"></input><button onclick="fetchGameState()">LOAD</button></div>
           <h3>Missing Bonus Tiles</h3>
           {/* 
         ~~~Checkbox UI~~~
