@@ -11,7 +11,7 @@ function fetchGameState() {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var game_state = JSON.parse(xhr.response);
-      parseRoundScoreTiles(game_state.events.global);
+      setRoundScoreTiles(game_state.events.global);
     }
   };
   // instead of having a backend, we proxy the HTTP request with cors-anywhere
