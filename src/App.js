@@ -6,6 +6,40 @@ import { BONUS_TILES, ROUND_TILES, COLORS, FACTIONS } from "./data.js";
 
 let renderCount = 0;
 
+function fetchGameState() {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var game_state = JSON.parse(xhr.response);
+      parseRoundScoreTiles(game_state.events.global);
+    }
+  };
+  // instead of having a backend, we proxy the HTTP request with cors-anywhere
+  xhr.open("POST", "https://cors-anywhere.herokuapp.com/https://terra.snellman.net/app/view-game/");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  // payload must be e.g. "game=4pLeague_S26_D6L10_G4".
+  var payload = "game=" + document.getElementById("game_id").value;
+  xhr.send(payload);
+}
+
+// most elements of the input are garbage, but we look for e.g. round 2 had scoring tile 3:
+// {SCORE3 : {round : {2: 1, all: 1}}
+function setRoundScoreTiles(global_events) {
+  var i;
+  var score;
+  var round;
+  let select_elem;
+  for (i = 0; i < 20; i++) {
+    maybe_key = 'SCORE'+i;
+    score = global_events[maybe_key];
+    if (score) {
+      round = Object.keys(score.round)[0];
+      select_elem = document.getElementsByName('round'+round)[0];
+      select_elem.value = i;
+    }
+  }
+}
+
 function App() {
   renderCount++;
   const GAMESTATE_LENGTH = 119;
