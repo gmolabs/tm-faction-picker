@@ -27,6 +27,7 @@ function App() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         var game_state = JSON.parse(xhr.response);
         setRoundScoreTiles(game_state.events.global);
+        setMissingBonusTiles(game_state.ledger);
       }
     };
     // instead of having a backend, we proxy the HTTP request with cors-anywhere
@@ -52,11 +53,26 @@ function App() {
         delete score.round.all;
         round = Object.keys(score.round)[0];
         select_elem = document.getElementsByName('round' + round)[0];
-        select_elem.value = i;
+        select_elem.value = i - 1;
       }
     }
   }
 
+  const setMissingBonusTiles = (ledger) => {
+    let num_removed = 0;
+    let bon_num;
+    let comment;
+    let select_elem;
+    for (i = 0; i < ledger.length; i++) {
+      comment = ledger[i].comment;
+      if (comment && comment.startsWith("Removing tile BON") {
+        bon_num = parseInt(comment[comment.length - 1]);
+        select_elem = document.getElementsByName('bonus' + num_removed + 1)[0];
+        select_elem.value = bon_num - 1;
+        num_removed++;
+      }
+    }
+  }
 
   const makePrediction = () => {
 
