@@ -49,7 +49,7 @@ function App() {
       let maybe_key = 'SCORE' + i;
       score = global_events[maybe_key];
       if (score) {
-	// Maybe this shows up first? let's not rely on order.
+        // Maybe this shows up first? let's not rely on order.
         delete score.round.all;
         round = Object.keys(score.round)[0];
         select_elem = document.getElementsByName('round' + round)[0];
@@ -65,7 +65,7 @@ function App() {
     let select_elem;
     for (i = 0; i < ledger.length; i++) {
       comment = ledger[i].comment;
-      if (comment && comment.startsWith("Removing tile BON") {
+      if (comment && comment.startsWith("Removing tile BON")) {
         bon_num = parseInt(comment[comment.length - 1]);
         select_elem = document.getElementsByName('bonus' + num_removed + 1)[0];
         select_elem.value = bon_num - 1;
