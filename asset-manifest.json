@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/tm-faction-picker/static/css/main.3b5bd0e3.chunk.css",
-    "main.js": "/tm-faction-picker/static/js/main.bd80ec96.chunk.js",
-    "main.js.map": "/tm-faction-picker/static/js/main.bd80ec96.chunk.js.map",
+    "main.js": "/tm-faction-picker/static/js/main.6390cd77.chunk.js",
+    "main.js.map": "/tm-faction-picker/static/js/main.6390cd77.chunk.js.map",
     "runtime-main.js": "/tm-faction-picker/static/js/runtime-main.3319770e.js",
     "runtime-main.js.map": "/tm-faction-picker/static/js/runtime-main.3319770e.js.map",
     "static/js/2.4aac4546.chunk.js": "/tm-faction-picker/static/js/2.4aac4546.chunk.js",
     "static/js/2.4aac4546.chunk.js.map": "/tm-faction-picker/static/js/2.4aac4546.chunk.js.map",
     "index.html": "/tm-faction-picker/index.html",
-    "precache-manifest.d9402a4f3391ac23891bb852afdbef9c.js": "/tm-faction-picker/precache-manifest.d9402a4f3391ac23891bb852afdbef9c.js",
+    "precache-manifest.0caff25a68270c42dd2e45acb29ebdb7.js": "/tm-faction-picker/precache-manifest.0caff25a68270c42dd2e45acb29ebdb7.js",
     "service-worker.js": "/tm-faction-picker/service-worker.js",
     "static/css/main.3b5bd0e3.chunk.css.map": "/tm-faction-picker/static/css/main.3b5bd0e3.chunk.css.map",
     "static/js/2.4aac4546.chunk.js.LICENSE.txt": "/tm-faction-picker/static/js/2.4aac4546.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.3319770e.js",
     "static/js/2.4aac4546.chunk.js",
     "static/css/main.3b5bd0e3.chunk.css",
-    "static/js/main.bd80ec96.chunk.js"
+    "static/js/main.6390cd77.chunk.js"
   ]
 }
