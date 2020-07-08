@@ -8,7 +8,7 @@ let renderCount = 0;
 
 function fetchGameState() {
   var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var game_state = JSON.parse(xhr.response);
       setRoundScoreTiles(game_state.events.global);
@@ -30,11 +30,11 @@ function setRoundScoreTiles(global_events) {
   var round;
   let select_elem;
   for (i = 0; i < 20; i++) {
-    maybe_key = 'SCORE'+i;
+    let maybe_key = 'SCORE' + i;
     score = global_events[maybe_key];
     if (score) {
       round = Object.keys(score.round)[0];
-      select_elem = document.getElementsByName('round'+round)[0];
+      select_elem = document.getElementsByName('round' + round)[0];
       select_elem.value = i;
     }
   }
