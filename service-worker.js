@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/tm-faction-picker/precache-manifest.480ca8a2e03c1833a6db187768cb8a84.js"
+  "/tm-faction-picker/precache-manifest.13bfc62d2fc0548522868c1f9bfbf4fa.js"
 );
 
 self.addEventListener('message', (event) => {
