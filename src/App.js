@@ -67,7 +67,7 @@ function App() {
       comment = ledger[i].comment;
       if (comment && comment.startsWith("Removing tile BON")) {
         bon_num = parseInt(comment[comment.length - 1]);
-        select_elem = document.getElementsByName('bonus' + num_removed + 1)[0];
+        select_elem = document.getElementsByName('bonus' + (num_removed + 1))[0];
         select_elem.value = bon_num - 1;
         num_removed++;
       }
