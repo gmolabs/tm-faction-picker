@@ -63,7 +63,7 @@ function App() {
     let bon_num;
     let comment;
     let select_elem;
-    for (i = 0; i < ledger.length; i++) {
+    for (let i = 0; i < ledger.length; i++) {
       comment = ledger[i].comment;
       if (comment && comment.startsWith("Removing tile BON")) {
         bon_num = parseInt(comment[comment.length - 1]);
