@@ -48,6 +48,8 @@ function App() {
       let maybe_key = 'SCORE' + i;
       score = global_events[maybe_key];
       if (score) {
+	// Maybe this shows up first? let's not rely on order.
+        delete score.round.all;
         round = Object.keys(score.round)[0];
         select_elem = document.getElementsByName('round' + round)[0];
         select_elem.value = i;
@@ -167,7 +169,7 @@ function App() {
         {/* <h2>Terra Mystica Faction Picker</h2> */}
         <h3>Load Game from Snellman</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div><input id="game_id" type="text"></input><button onClick={fetchGameState}>LOAD</button></div>
+          <div><input id="game_id" type="text" value="4pLeague_S26_D6L10_G4"></input><button onClick={fetchGameState}>LOAD</button></div>
           <h3>Missing Bonus Tiles</h3>
           {/* 
         ~~~Checkbox UI~~~
