@@ -28,6 +28,7 @@ function App() {
         var game_state = JSON.parse(xhr.response);
         setRoundScoreTiles(game_state.events.global);
         setMissingBonusTiles(game_state.ledger);
+        makePrediction();
       }
     };
     // instead of having a backend, we proxy the HTTP request with cors-anywhere
@@ -185,7 +186,7 @@ function App() {
         {/* <h2>Terra Mystica Faction Picker</h2> */}
         <h3>Load Game from Snellman</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div><input id="game_id" type="text" value="4pLeague_S26_D6L10_G4"></input><button onClick={fetchGameState}>LOAD</button></div>
+          <div><input id="game_id" type="text" value="4pLeague_S26_D6L10_G4" onChange={e => this.setState({ text: e.target.value })}></input><button onClick={fetchGameState}>LOAD</button></div>
           <h3>Missing Bonus Tiles</h3>
           {/* 
         ~~~Checkbox UI~~~
