@@ -19,6 +19,7 @@ function App() {
   const [predictions, setPredictions] = useState([]);
   const [model, setModel] = useState(null);
   const [sortedPredictions, setSortedPredictions] = useState([]);
+  const [gameURL, setGameURL] = useState("4pLeague_S26_D6L10_G4");
 
 
   const fetchGameState = () => {
@@ -28,6 +29,8 @@ function App() {
         var game_state = JSON.parse(xhr.response);
         setRoundScoreTiles(game_state.events.global);
         setMissingBonusTiles(game_state.ledger);
+        setFactions(game_state.order);
+        makePrediction();
       }
     };
     // instead of having a backend, we proxy the HTTP request with cors-anywhere
@@ -58,6 +61,26 @@ function App() {
     }
   }
 
+  const setFactions = (factions) => {
+    // console.log("setting factions");
+    for (let i = 0; i < 3; i++) {
+      let select_elem = document.getElementsByName('fact' + (i + 1))[0];
+      //console.log(select_elem);
+      let myIndex = 0;
+      let j = 0;
+      // console.log(factions[i]);
+      for (j = 0; j < FACTIONS.length; j++) {
+        //console.log(FACTIONS[j].faction.toLowerCase());
+        if (FACTIONS[j].faction.toLowerCase() === factions[i]) {
+          //console.log(factions[i]);
+          select_elem.value = j;
+        }
+      }
+      //console.log(FACTIONS.indexOf(facto))
+      //select_elem.value = FACTIONS.indexOf(factions[i]);
+    }
+  }
+
   const setMissingBonusTiles = (ledger) => {
     let num_removed = 0;
     let bon_num;
@@ -72,6 +95,7 @@ function App() {
         num_removed++;
       }
     }
+    // makePrediction();
   }
 
   const makePrediction = () => {
@@ -81,7 +105,7 @@ function App() {
     //last three are already-selected factions by index ("none" if not selected)
 
     let gamestate = [watch("bonus1"), watch("bonus2"), watch("bonus3"), watch("round1"), watch("round2"), watch("round3"), watch("round4"), watch("round5"), watch("round6"), watch("fact1"), watch("fact2"), watch("fact3")];
-    console.log(gamestate);
+    //console.log(gamestate);
     let onehot = new Array(GAMESTATE_LENGTH).fill(0);
 
     //first 10 digits of onehot encoding get a 1 if indexed bonus tile is missing
@@ -102,7 +126,7 @@ function App() {
         onehot[parseInt(gamestate[i]) + 10] = 0;
       }
     }
-    console.log(onehot);
+    //console.log(onehot);
 
     //index 19-72
     //next 6*9=54 bits are onehot encoding of round bonus tiles. 
@@ -172,7 +196,7 @@ function App() {
         }
         sortedPredictions.sort((a, b) => (a.score < b.score) ? 1 : -1);
 
-        console.log(sortedPredictions);
+        //console.log(sortedPredictions);
         setPredictions(sortedPredictions);
       });
     })();
@@ -185,7 +209,7 @@ function App() {
         {/* <h2>Terra Mystica Faction Picker</h2> */}
         <h3>Load Game from Snellman</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div><input id="game_id" type="text" value="4pLeague_S26_D6L10_G4"></input><button onClick={fetchGameState}>LOAD</button></div>
+          <div><input id="game_id" type="text" defaultValue={gameURL}></input><button onClick={fetchGameState}>LOAD</button></div>
           <h3>Missing Bonus Tiles</h3>
           {/* 
         ~~~Checkbox UI~~~
